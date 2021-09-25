@@ -1,7 +1,50 @@
-export const fetchSingleMovie = async (movieID: string) => {
-  let res = await fetch(
+export interface Movie {
+  title: string;
+  tagline: string;
+  overview: string;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  production_companies: {
+    id: number;
+    logo: string;
+    name: string;
+    country: string;
+  }[];
+  release_date: string;
+  runtime: number;
+  revenue: number;
+  rating: number;
+  backdrop_path: string;
+  poster_path: string;
+}
+
+export const fetchPopularMovies = async () => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`
+  );
+  const movies = await res.json();
+  return movies.results[0].id;
+};
+
+export const fetchSingleMovie = async (movieID: string): Promise<Movie> => {
+  const res = await fetch(
     `https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
   );
-  let movie = await res.json();
+  const data = await res.json();
+  const movie = {
+    title: data.original_title,
+    tagline: data.tagline,
+    overview: data.overview,
+    genres: data.genres,
+    production_companies: data.production_companies,
+    release_date: data.release_date,
+    runtime: data.runtime,
+    revenue: data.revenue,
+    rating: data.vote_average,
+    backdrop_path: data.backdrop_path,
+    poster_path: data.poster_path,
+  };
   return movie;
 };

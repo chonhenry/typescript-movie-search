@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { fetchSingleMovie } from "./api/api";
+import { fetchSingleMovie, fetchPopularMovies, Movie } from "./api/api";
 import "./App.css";
 
-interface movie {
-  name: string;
-}
+const App: React.FC = () => {
+  const [movie, setMovie] = useState<Movie | null>(null);
 
-function App() {
-  const [movie, setMovie] = useState("");
   useEffect(() => {
-    fetchSingleMovie("581726").then((res) => {
-      console.log(res);
-      setMovie(res.original_title);
-    });
+    const fetchMovie = async () => {
+      const id = await fetchPopularMovies();
+      const res = await fetchSingleMovie(id);
+      setMovie(res);
+    };
+
+    fetchMovie();
   }, []);
 
-  return <div className="App">{movie}</div>;
-}
+  return <div className="App">{movie && movie.title}</div>;
+};
 
 export default App;
