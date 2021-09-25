@@ -1,0 +1,30 @@
+.card {
+  margin-top: 30px;
+  width: 960px;
+  height: 600px;
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+}
+
+.poster-container {
+  width: 400px;
+  height: 100%;
+}
+
+.poster-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.information-container {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.title {
+  margin: 0 0 10px 0;
+  font-size: 2.3rem;
+}

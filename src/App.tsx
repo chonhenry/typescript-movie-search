@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchSingleMovie, fetchPopularMovies, Movie } from "./api/api";
 import Navbar from "./components/Navbar";
+import Card from "./components/Card";
 import "./App.css";
 
 const App: React.FC = () => {
@@ -23,10 +24,10 @@ const App: React.FC = () => {
         backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`,
       }}
     >
-      <div className="backdrop"></div>
+      <div className="backdrop" />
       <div className="container">
         <Navbar />
-        {movie && movie.title}
+        {movie !== null && <Card movie={movie} />}
       </div>
     </div>
   );
