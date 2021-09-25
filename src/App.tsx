@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchSingleMovie, fetchPopularMovies, Movie } from "./api/api";
+import Navbar from "./components/Navbar";
 import "./App.css";
 
 const App: React.FC = () => {
@@ -15,7 +16,14 @@ const App: React.FC = () => {
     fetchMovie();
   }, []);
 
-  return <div className="App">{movie && movie.title}</div>;
+  return (
+    <div className="app">
+      <div className="container">
+        <Navbar />
+        {movie && movie.title}
+      </div>
+    </div>
+  );
 };
 
 export default App;
