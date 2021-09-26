@@ -21,7 +21,9 @@ const App: React.FC = () => {
     <div
       className="app"
       style={{
-        backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`,
+        backgroundImage: movie
+          ? `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`
+          : "",
       }}
     >
       <div className="backdrop" />
