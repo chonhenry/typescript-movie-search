@@ -30,6 +30,27 @@ const App: React.FC = () => {
       <div className="container">
         <Navbar />
         {movie !== null && <Card movie={movie} />}
+        <footer className="footer">
+          <div>
+            <a
+              className="footer-link color-text"
+              href="https://www.henrychon.co"
+              target="_blank"
+            >
+              Developed by Henry Chon
+            </a>
+          </div>
+          <div>
+            <a
+              className="footer-link color-text"
+              href="https://github.com/chonhenry/typescript-movie-search"
+              target="_blank"
+            >
+              <i className="fab fa-github" style={{ marginRight: "5px" }}></i>{" "}
+              View Code
+            </a>
+          </div>
+        </footer>
       </div>
     </div>
   );
