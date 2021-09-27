@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { fetchSingleMovie, fetchPopularMovies, Movie } from "./api/api";
+import {
+  fetchSingleMovie,
+  fetchPopularMovies,
+  Movie,
+  searchMovies,
+} from "./api/api";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import "./App.css";
@@ -17,18 +22,22 @@ const App: React.FC = () => {
     fetchMovie();
   }, []);
 
+  const searchMovie = (searchTerm: string) => {
+    searchMovies(searchTerm);
+  };
+
   return (
     <div
       className="app"
       style={{
         backgroundImage: movie
-          ? `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`
+          ? `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
           : "",
       }}
     >
       <div className="backdrop" />
       <div className="container">
-        <Navbar />
+        <Navbar searchMovie={searchMovie} />
         {movie !== null && <Card movie={movie} />}
         <footer className="footer">
           <div>
