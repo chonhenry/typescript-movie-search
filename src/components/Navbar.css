@@ -22,6 +22,10 @@
   font-size: 1.1rem;
 }
 
+.search-container {
+  position: relative;
+}
+
 input {
   border: none;
   background: none;

@@ -1,12 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Result, Movie } from "../api/api";
+import SearchResult from "./SearchResult";
 import "./Navbar.css";
 
 interface Props {
   searchMovie: (s: string) => void;
+  results: Result[];
+  selectMovie: (id: number) => void;
+  setResults: React.Dispatch<React.SetStateAction<Result[]>>;
 }
 
-const Navbar: React.FC<Props> = ({ searchMovie }) => {
+const Navbar: React.FC<Props> = ({
+  searchMovie,
+  results,
+  selectMovie,
+  setResults,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener("mousedown", handleClick);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+
+  const handleClick = (e: any) => {
+    if (!ref.current) return;
+
+    if (ref.current.contains(e.target)) {
+      // inside click
+      return;
+    }
+    // outside click
+    setResults([]);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -21,12 +52,15 @@ const Navbar: React.FC<Props> = ({ searchMovie }) => {
         <div className="logo-text-upper">powered by</div>
         <div className="logo-text-lower">the movie db</div>
       </div>
-      <input
-        type="text"
-        placeholder="Search Movie Title"
-        onChange={(e) => handleChange(e)}
-        value={searchTerm}
-      />
+      <div className="search-container" ref={ref}>
+        <input
+          type="text"
+          placeholder="Search Movie Title"
+          onChange={(e) => handleChange(e)}
+          value={searchTerm}
+        />
+        <SearchResult results={results} selectMovie={selectMovie} />
+      </div>
     </nav>
   );
 };

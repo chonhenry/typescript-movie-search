@@ -1,5 +1,4 @@
 import React from "react";
-import { moveEmitHelpers } from "typescript";
 import { Movie } from "../api/api";
 import "./Card.css";
 

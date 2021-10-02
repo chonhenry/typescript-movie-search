@@ -1,0 +1,26 @@
+.results-list {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* color: wheat; */
+}
+
+.search-result {
+  box-sizing: border-box;
+  list-style-type: none;
+  color: white;
+  background-color: black;
+  opacity: 0.9;
+  width: 100%;
+  padding: 15px 20px;
+  cursor: pointer;
+}
+
+.search-result:hover {
+  color: black;
+  background-color: #01b4e4;
+  opacity: 1;
+}

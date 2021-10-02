@@ -1,4 +1,5 @@
 export interface Movie {
+  id: number;
   title: string;
   tagline: string;
   overview: string;
@@ -20,7 +21,12 @@ export interface Movie {
   poster_path: string;
 }
 
-export const fetchPopularMovies = async () => {
+export interface Result {
+  title: string;
+  id: number;
+}
+
+export const fetchPopularMovies = async (): Promise<string> => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`
   );
@@ -34,6 +40,7 @@ export const fetchSingleMovie = async (movieID: string): Promise<Movie> => {
   );
   const data = await res.json();
   const movie = {
+    id: data.id,
     title: data.original_title,
     tagline: data.tagline,
     overview: data.overview,
@@ -49,10 +56,13 @@ export const fetchSingleMovie = async (movieID: string): Promise<Movie> => {
   return movie;
 };
 
-export const searchMovies = async (searchTerm: string): Promise<any> => {
+export const searchMovies = async (searchTerm: string): Promise<Result[]> => {
   const res = await fetch(
     `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&language=en-US&page=1&include_adult=false`
   );
-  const data = await res.json();
-  console.log(data);
+  const data = (await res.json()).results.slice(0, 5);
+  // console.log(data.results.slice(0, 5));
+  return data.map((movie: any) => {
+    return { title: movie.original_title, id: movie.id };
+  });
 };

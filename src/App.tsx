@@ -4,6 +4,7 @@ import {
   fetchPopularMovies,
   Movie,
   searchMovies,
+  Result,
 } from "./api/api";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
@@ -11,6 +12,7 @@ import "./App.css";
 
 const App: React.FC = () => {
   const [movie, setMovie] = useState<Movie | null>(null);
+  const [results, setResults] = useState<Result[]>([]);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -22,8 +24,14 @@ const App: React.FC = () => {
     fetchMovie();
   }, []);
 
-  const searchMovie = (searchTerm: string) => {
-    searchMovies(searchTerm);
+  const searchMovie = async (searchTerm: string) => {
+    const res = await searchMovies(searchTerm);
+    // console.log(res);
+    setResults(res);
+  };
+
+  const selectMovie = (id: number) => {
+    console.log("movie id:", id);
   };
 
   return (
@@ -37,7 +45,12 @@ const App: React.FC = () => {
     >
       <div className="backdrop" />
       <div className="container">
-        <Navbar searchMovie={searchMovie} />
+        <Navbar
+          searchMovie={searchMovie}
+          results={results}
+          selectMovie={selectMovie}
+          setResults={setResults}
+        />
         {movie !== null && <Card movie={movie} />}
         <footer className="footer">
           <div>
@@ -45,6 +58,7 @@ const App: React.FC = () => {
               className="footer-link color-text"
               href="https://www.henrychon.co"
               target="_blank"
+              rel="noreferrer"
             >
               Developed by Henry Chon
             </a>
@@ -54,6 +68,7 @@ const App: React.FC = () => {
               className="footer-link color-text"
               href="https://github.com/chonhenry/typescript-movie-search"
               target="_blank"
+              rel="noreferrer"
             >
               <i className="fab fa-github" style={{ marginRight: "5px" }}></i>{" "}
               View Code
