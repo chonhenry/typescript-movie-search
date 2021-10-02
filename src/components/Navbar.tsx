@@ -17,7 +17,7 @@ const Navbar: React.FC<Props> = ({
   setResults,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     // add when mounted
@@ -36,6 +36,7 @@ const Navbar: React.FC<Props> = ({
       return;
     }
     // outside click
+    console.log(123);
     setResults([]);
   };
 
@@ -52,12 +53,13 @@ const Navbar: React.FC<Props> = ({
         <div className="logo-text-upper">powered by</div>
         <div className="logo-text-lower">the movie db</div>
       </div>
-      <div className="search-container" ref={ref}>
+      <div className="search-container">
         <input
           type="text"
           placeholder="Search Movie Title"
           onChange={(e) => handleChange(e)}
           value={searchTerm}
+          // ref={ref}
         />
         <SearchResult results={results} selectMovie={selectMovie} />
       </div>

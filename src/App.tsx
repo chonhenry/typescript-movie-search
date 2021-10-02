@@ -26,12 +26,12 @@ const App: React.FC = () => {
 
   const searchMovie = async (searchTerm: string) => {
     const res = await searchMovies(searchTerm);
-    // console.log(res);
     setResults(res);
   };
 
-  const selectMovie = (id: number) => {
-    console.log("movie id:", id);
+  const selectMovie = async (id: number) => {
+    const movie = await fetchSingleMovie(id);
+    setMovie(movie);
   };
 
   return (
@@ -42,6 +42,7 @@ const App: React.FC = () => {
           ? `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
           : "",
       }}
+      onClick={() => setResults([])}
     >
       <div className="backdrop" />
       <div className="container">
