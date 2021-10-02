@@ -49,7 +49,10 @@ const Navbar: React.FC<Props> = ({
 
   return (
     <nav className="navbar">
-      <div className="logo">
+      <div
+        className="logo"
+        onClick={() => window.open("https://www.themoviedb.org")}
+      >
         <div className="logo-text-upper">powered by</div>
         <div className="logo-text-lower">the movie db</div>
       </div>
@@ -59,7 +62,6 @@ const Navbar: React.FC<Props> = ({
           placeholder="Search Movie Title"
           onChange={(e) => handleChange(e)}
           value={searchTerm}
-          // ref={ref}
         />
         <SearchResult results={results} selectMovie={selectMovie} />
       </div>
